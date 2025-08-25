@@ -18,6 +18,7 @@ public class AdopetConsoleApplication {
 
     public static void main(String[] args) {
         System.out.println("##### BOAS VINDAS AO SISTEMA ADOPET CONSOLE #####");
+        AdopetConsoleApplication adopetConsoleApplication = new AdopetConsoleApplication();
         try {
             int opcaoEscolhida = 0;
             while (opcaoEscolhida != 5) {
@@ -32,7 +33,7 @@ public class AdopetConsoleApplication {
                 opcaoEscolhida = Integer.parseInt(textoDigitado);
 
                 if (opcaoEscolhida == 1) {
-                    listarAbrigo();
+                    adopetConsoleApplication.listarAbrigos();
                 } else if (opcaoEscolhida == 2) {
                     cadastrarAbrigo();
                 } else if (opcaoEscolhida == 3) {
@@ -52,7 +53,7 @@ public class AdopetConsoleApplication {
         }
     }
 
-    private static void listarAbrigo() throws IOException, InterruptedException {
+    private void listarAbrigos() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         String uri = "http://localhost:8080/abrigos";
         HttpResponse<String> response = dispararRequisicaoGet(client, uri);
