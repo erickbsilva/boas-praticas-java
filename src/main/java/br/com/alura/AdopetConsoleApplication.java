@@ -1,5 +1,6 @@
 package br.com.alura;
 
+import br.com.alura.client.ClientHttpConfiguration;
 import br.com.alura.service.AbrigoService;
 import br.com.alura.service.PetService;
 import com.google.gson.JsonArray;
@@ -19,13 +20,16 @@ import java.util.Scanner;
 public class AdopetConsoleApplication {
 
     public static void main(String[] args) {
+
+        ClientHttpConfiguration client = new ClientHttpConfiguration();
+
         System.out.println("##### BOAS VINDAS AO SISTEMA ADOPET CONSOLE #####");
 
         // Funcionava quando tinha o static
         //AdopetConsoleApplication adopetConsoleApplication = new AdopetConsoleApplication();
 
-        AbrigoService abrigoService = new AbrigoService();
-        PetService petService = new PetService();
+        AbrigoService abrigoService = new AbrigoService(client);
+        PetService petService = new PetService(client);
 
         try {
             int opcaoEscolhida = 0;
