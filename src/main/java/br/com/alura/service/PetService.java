@@ -2,6 +2,7 @@ package br.com.alura.service;
 
 import br.com.alura.client.ClientHttpConfiguration;
 import br.com.alura.domain.Pet;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -14,6 +15,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class PetService {
@@ -36,15 +39,17 @@ public class PetService {
             System.out.println("ID ou nome não cadastrado!");
         }
         String responseBody = response.body();
-        JsonArray jsonArray = JsonParser.parseString(responseBody).getAsJsonArray();
+        // Notas do curso: A intenção é utilizar o new ObjectMapper utilizando o método readValue(). Vamos passar o response.body como primeiro parâmetro e o segundo parâmetro será um array de Pet, Pet[]. Preciso definir, colocando .class, porque precisamos passar qual classe o Jackson utilizará como referência para executar essa conversão por baixo dos panos.
+        Pet[] pets = new ObjectMapper().readValue(responseBody, Pet[].class);
+        // Notas do curso: Mais uma vez, para evitar trabalharmos com o array, podemos converter para uma lista, já que temos mais métodos e flexibilidade ao trabalhar com uma lista do Java, com uma coleção do Java. Para fazer isso, utilizamos a API de streams que começou a ser vista no Java 8, muito famosa e útil para auxiliar nessa transformação.
+        List<Pet> petList = Arrays.stream(pets).toList();
         System.out.println("Pets cadastrados:");
-        for (JsonElement element : jsonArray) {
-            JsonObject jsonObject = element.getAsJsonObject();
-            long id = jsonObject.get("id").getAsLong();
-            String tipo = jsonObject.get("tipo").getAsString();
-            String nome = jsonObject.get("nome").getAsString();
-            String raca = jsonObject.get("raca").getAsString();
-            int idade = jsonObject.get("idade").getAsInt();
+        for (Pet pet : petList) {
+            long id = pet.getId();
+            String tipo = pet.getTipo();
+            String nome = pet.getNome();
+            String raca = pet.getRaca();
+            int idade = pet.getIdade();
             System.out.println(id + " - " + tipo + " - " + nome + " - " + raca + " - " + idade + " ano(s)");
         }
     }
