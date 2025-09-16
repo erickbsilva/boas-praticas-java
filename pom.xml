@@ -48,7 +48,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.seuprojeto.Main</mainClass>
+                            <mainClass>br.com.alura.AdopetConsoleApplication</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -71,7 +71,7 @@
                 <version>3.2.5</version>
                 <configuration>
                     <argLine>
-                        -javaagent:${settings.localRepository}/net/bytebuddy/byte-buddy-agent/1.17.6/byte-buddy-agent-1.17.6.jar
+                        --enable-native-access=ALL-UNNAMED -javaagent:${settings.localRepository}/net/bytebuddy/byte-buddy-agent/1.17.6/byte-buddy-agent-1.17.6.jar
                     </argLine>
                 </configuration>
             </plugin>

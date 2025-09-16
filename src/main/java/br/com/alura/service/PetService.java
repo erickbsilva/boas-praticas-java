@@ -21,7 +21,7 @@ import java.util.Scanner;
 
 public class PetService {
 
-    private ClientHttpConfiguration client;
+    private final ClientHttpConfiguration client;
 
     public PetService(ClientHttpConfiguration client) {
         this.client = client;
@@ -55,11 +55,19 @@ public class PetService {
     }
 
     public void importarPetsDoAbrigo() throws IOException, InterruptedException {
+//        String idOuNome = null;
+//        String nomeArquivo = null;
+
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Digite o id ou nome do abrigo:");
-        String idOuNome = new Scanner(System.in).nextLine();
+//            idOuNome = new Scanner(System.in).nextLine();
+        String idOuNome = scanner.nextLine();
 
         System.out.println("Digite o nome do arquivo CSV:");
-        String nomeArquivo = new Scanner(System.in).nextLine();
+//            nomeArquivo = new Scanner(System.in).nextLine();
+        String nomeArquivo = scanner.nextLine();
+
 
         BufferedReader reader = null;
         try {
@@ -68,6 +76,7 @@ public class PetService {
             System.out.println("Erro ao carregar o arquivo: " + nomeArquivo);
         }
         String line;
+
         while ((line = reader.readLine()) != null) {
             String[] campos = line.split(",");
             String tipo = campos[0];
@@ -95,6 +104,7 @@ public class PetService {
                 break;
             }
         }
+
         reader.close();
     }
 }
